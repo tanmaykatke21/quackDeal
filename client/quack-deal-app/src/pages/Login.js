@@ -104,8 +104,14 @@ const Login = () => {
       await signInWithPopup(auth, googleProvider);
       navigate('/dashboard');
     } catch (err) {
-      setError('Sign-in failed. Please try again.');
-      console.error(err);
+      console.error('Firebase auth error:', err.code, err.message);
+      if (err.code === 'auth/unauthorized-domain') {
+        setError(`Domain not authorized. Add "quack-deal-app.vercel.app" to Firebase Console → Authentication → Settings → Authorized domains.`);
+      } else if (err.code === 'auth/popup-blocked') {
+        setError('Popup was blocked by your browser. Please allow popups for this site and try again.');
+      } else {
+        setError(`Sign-in failed: ${err.code || err.message}`);
+      }
     } finally {
       setLoading(false);
     }
