@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getDeals, getAnalytics } from '../services/api';
+import API from '../services/api';
 import DealCard from '../components/Deal/DealCard';
 import StatsCard from '../components/Dashboard/StatsCard';
 import { PlusCircle, RefreshCw, Bot, Send, ChevronDown, MessageSquare } from 'lucide-react';
 import { formatCurrency } from '../utils/dealHealth';
-import axios from 'axios';
-
-const API = axios.create({ baseURL: 'http://localhost:5001' });
 
 const FILTERS = [
   { key: 'all',       label: 'All Deals',           emoji: '📋', description: null },
